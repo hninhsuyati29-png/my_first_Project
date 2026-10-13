@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Campus Map — UIT GuideMe</title>
+  <meta name="description" content="Interactive campus map of the University of Information Technology, Yangon. Explore all four buildings and their departments." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+</head>
+<body>
+  <header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">U</span> UIT GuideMe
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="map.html">Map</a>
+      <a href="floor.html">Floors</a>
+      <a href="search.html">Search</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  
+
+    <section class="section">
+      <div class="container">
+        <div class="map-frame" style="padding:20px;">
+          <svg viewBox="0 0 900 500" role="img" aria-label="Campus map" style="width:100%;height:auto;display:block;">
+            <!-- Ground -->
+            <rect x="10" y="10" width="880" height="480" rx="16" fill="#F0FDFA" stroke="#CBE7E1" />
+            <!-- Path -->
+            <path d="M 60 260 L 840 260" stroke="#CBE7E1" stroke-width="16" stroke-linecap="round" />
+            <path d="M 450 40 L 450 470" stroke="#CBE7E1" stroke-width="16" stroke-linecap="round" />
+            <!-- Trees -->
+            <circle cx="180" cy="120" r="14" fill="#99F6E4" opacity="0.7"/>
+            <circle cx="720" cy="120" r="14" fill="#99F6E4" opacity="0.7"/>
+            <circle cx="180" cy="400" r="14" fill="#99F6E4" opacity="0.7"/>
+            <circle cx="720" cy="400" r="14" fill="#99F6E4" opacity="0.7"/>
+            <circle cx="450" cy="250" r="10" fill="#F97316" opacity="0.85"/>
+            <text x="450" y="285" text-anchor="middle" font-family="Inter" font-size="12" fill="#0B1220" font-weight="700">Main Entrance</text>
+
+            <!-- Buildings (clickable) -->
+            <a href="building.html?b=1" aria-label="Building 1">
+              <rect x="90" y="70" width="280" height="140" rx="14" fill="#fff" stroke="#0F766E" stroke-width="2" />
+              <text x="230" y="130" text-anchor="middle" font-family="Inter" font-weight="800" font-size="22" fill="#0F766E">Building 1</text>
+              <text x="230" y="155" text-anchor="middle" font-family="Inter" font-size="12" fill="#334155">Faculty of Computer Science</text>
+              <text x="230" y="175" text-anchor="middle" font-family="Inter" font-size="11" fill="#64748B">6 floors · 36 rooms</text>
+            </a>
+            <a href="building.html?b=2" aria-label="Building 2">
+              <rect x="530" y="70" width="280" height="140" rx="14" fill="#fff" stroke="#0F766E" stroke-width="2" />
+              <text x="670" y="130" text-anchor="middle" font-family="Inter" font-weight="800" font-size="22" fill="#0F766E">Building 2</text>
+              <text x="670" y="155" text-anchor="middle" font-family="Inter" font-size="12" fill="#334155">Computer Systems &amp; Technologies</text>
+              <text x="670" y="175" text-anchor="middle" font-family="Inter" font-size="11" fill="#64748B">6 floors · 36 rooms</text>
+            </a>
+            <a href="building.html?b=3" aria-label="Building 3">
+              <rect x="90" y="310" width="280" height="140" rx="14" fill="#fff" stroke="#0F766E" stroke-width="2" />
+              <text x="230" y="370" text-anchor="middle" font-family="Inter" font-weight="800" font-size="22" fill="#0F766E">Building 4</text>
+              <text x="230" y="395" text-anchor="middle" font-family="Inter" font-size="12" fill="#334155">Information Science &amp; Library</text>
+              <text x="230" y="415" text-anchor="middle" font-family="Inter" font-size="11" fill="#64748B">6 floors · 36 rooms</text>
+            </a>
+            <a href="building.html?b=4" aria-label="Building 4">
+              <rect x="530" y="310" width="280" height="140" rx="14" fill="#fff" stroke="#0F766E" stroke-width="2" />
+              <text x="670" y="370" text-anchor="middle" font-family="Inter" font-weight="800" font-size="22" fill="#0F766E">Building 3</text>
+              <text x="670" y="395" text-anchor="middle" font-family="Inter" font-size="12" fill="#334155"></text>
+              <text x="670" y="415" text-anchor="middle" font-family="Inter" font-size="11" fill="#64748B">6 floors · 36 rooms</text>
+            </a>
+          </svg>
+        </div>
+
+        <div class="grid cols-4" style="margin-top:22px;" data-buildings-grid></div>
+      </div>
+    </section>
+  </main>
+  <div data-footer></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/nav.js"></script>
+  <script>
+    (async function () {
+      const data = await window.GuideMe.data;
+      document.querySelector("[data-buildings-grid]").innerHTML = data.buildings.map((b) => `
+        <a class="building-card" href="building.html?b=${b.id}">
+          <div class="icon">B${b.id}</div>
+          <h3>${b.name.split(' — ')[0]}</h3>
+          <p>${b.description}</p>
+        </a>
+      `).join("");
+    })();
+  </script>
+</body>
+</html>

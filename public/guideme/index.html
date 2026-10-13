@@ -1,0 +1,98 @@
+
+<!Doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>UIT GuideMe — Find Any Room on Campus</title>
+<meta name="description" content="Interactive campus navigation for the University of Information Technology. Search rooms, browse floor maps, and get directions." />
+<meta property="og:title" content="UIT GuideMe — Campus Navigation" />
+<meta property="og:description" content="Find classrooms, labs, offices, and departments at UiT with interactive floor maps and step-by-step directions." />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="icon" href="assets/img/logo.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="css/index.css" />
+</head>
+<body>
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">U</span> UIT GuideMe
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="map.html">Map</a>
+      <a href="floor.html">Floors</a>
+      <a href="search.html">Search</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <form class="nav-search" data-search role="search">
+      <input type="search" name="q" placeholder="Search room, lab, department…" aria-label="Search" />
+    </form>
+    <button class="menu-toggle" aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <span class="badge accent">University of Information Technology</span>
+    <h1 style="margin-top:12px">Find any room in UIT — easily.</h1>
+    <p class="lead">Interactive maps, floor-by-floor navigation, and step-by-step directions for classrooms, labs, offices, and departments.</p>
+    <form class="hero-search" data-search role="search">
+      <input type="search" name="q" placeholder="Try &quot;213&quot;, &quot;Student Affair&quot;, or &quot;Library&quot;" aria-label="Search rooms" autofocus />
+      <button class="btn btn-primary" type="submit">Search</button>
+    </form>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-title">
+      <h2>Quick actions</h2>
+      <p>Jump straight to what you need.</p>
+    </div>
+    <div class="grid grid-4">
+      <a class="card" href="map.html"><div class="icon">🗺</div><h3>Building Map</h3><p>Interactive plan with clickable rooms.</p></a>
+      <a class="card" href="floor.html"><div class="icon">🏫</div><h3>Browse Floors</h3><p>View each floor separately.</p></a>
+      <a class="card" href="search.html"><div class="icon">🔍</div><h3>Search Rooms</h3><p>By number, name, lab, or department.</p></a>
+      <a class="card" href="directions.html"><div class="icon">➡️</div><h3>Get Directions</h3><p>Step-by-step route to any room.</p></a>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--surface)">
+  <div class="container">
+    <div class="section-title">
+      <h2>Popular locations</h2>
+      <p>Frequently searched rooms and departments.</p>
+    </div>
+    <div class="grid grid-3" id="popular"></div>
+  </div>
+</section>
+[7/30/2026 12:41 PM] Neo: <footer>
+  <div class="container">
+    <div>© UIT GuideMe — University of Information Technology</div>
+    <div><a href="about.html">About</a> · <a href="contact.html">Contact</a></div>
+  </div>
+</footer>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const el = document.getElementById("popular");
+    const items = (window.UIT_DATA.popular || []).map(id => window.UIT.getRoom(id)).filter(Boolean);
+    el.innerHTML = items.map(r => `
+      <a class="card" href="room.html?id=${r.id}">
+        <span class="badge">Room ${r.number}</span>
+        <h3 style="margin-top:10px">${r.name}</h3>
+        <p>${r.department} · Floor ${r.floor} · ${r.type}</p>
+      </a>
+    `).join("");
+  });
+</script>
+</body>
+</html>

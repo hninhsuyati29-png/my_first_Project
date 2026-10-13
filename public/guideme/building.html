@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Building — UIT GuideMe</title>
+  <meta name="description" content="Browse floors and rooms of a UIT building. Interactive floor maps with clickable rooms." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+</head>
+<body>
+  <div data-nav></div>
+  <main>
+    <div class="page-head">
+      <div class="container" data-building-head></div>
+    </div>
+
+    <section class="section-tight">
+      <div class="container">
+        <div class="search-filters" data-building-nav></div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0;">
+      <div class="container">
+        <div class="floor-tabs" data-floor-tabs role="tablist"></div>
+        <div class="split">
+          <div class="map-frame" data-map-frame>
+            <div class="map-viewport" data-map-viewport></div>
+          </div>
+          <div>
+            <h3 style="margin-top:0;">Rooms on this floor</h3>
+            <div class="room-list" data-room-list></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div data-footer></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/pages/building.js"></script>
+</body>
+</html>
